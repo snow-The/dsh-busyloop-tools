@@ -1,0 +1,4 @@
+# dsh-busyloop-tools — agent-facing tools over the busyloop engine.
+- insert:
+    - id: dsh-busyloop-tools
+      name: '@snow-the/dsh-busyloop-tools'

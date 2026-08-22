@@ -1,0 +1,44 @@
+{
+  "name": "@snow-the/dsh-busyloop-tools",
+  "version": "0.1.0",
+  "description": "Expose the dsh-busyloop engine to the agent as tools: run one-off subagent loops on a chosen LLM channel (Volcano Ark plan API by default) without touching the main model's tokens.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist",
+    "cordis.patch.yml",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsc --emitDeclarationOnly && esbuild src/index.ts --bundle --platform=node --format=esm --outfile=dist/index.js --external:@deepseek-ai/* --external:@snow-the/* --external:js-yaml",
+    "test": "node --test --test-concurrency=1"
+  },
+  "keywords": [
+    "dsh",
+    "plugin",
+    "busyloop",
+    "subagent",
+    "ark"
+  ],
+  "license": "MIT",
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    }
+  },
+  "dependencies": {
+    "@snow-the/dsh-busyloop": "^0.1.4",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@deepseek-ai/cordis": "4.0.1",
+    "@deepseek-ai/dsh-llm": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-llm-deepseek": "0.1.1-rc.2",
+    "@deepseek-ai/dsh-tools": "0.1.1-rc.2",
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^22.20.1",
+    "esbuild": "^0.24.2",
+    "typescript": "^5.9.3"
+  }
+}
