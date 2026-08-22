@@ -20,51 +20,11 @@ test('exports name and apply', () => {
   assert.equal(typeof apply, 'function');
 });
 
-test('apply registers busyloop_run and busyloop_health', () => {
+test('apply registers exactly one tool: busyloop_run', () => {
   const { ctx, registered } = makeCtx();
   apply(ctx);
   const names = registered.map((d) => d.name);
-  assert.deepEqual(names.sort(), ['busyloop_health', 'busyloop_run']);
-});
-
-test('busyloop_health reports key presence from env', async () => {
-  const { ctx, registered } = makeCtx();
-  apply(ctx);
-  const health = registered.find((d) => d.name === 'busyloop_health');
-
-  // Empty home dir → no credentials file → both keys absent.
-  const home = await mkdtemp(join(tmpdir(), 'blt-home-'));
-  const prevHome = process.env.USERPROFILE;
-  const prevArk = process.env.ARK_API_KEY;
-  const prevDeep = process.env.DEEPSEEK_API_KEY;
-  process.env.USERPROFILE = home;
-  delete process.env.ARK_API_KEY;
-  delete process.env.DEEPSEEK_API_KEY;
-  try {
-    let out = JSON.parse(await health.execute({}));
-    assert.equal(out.ok, true);
-    assert.equal(out.channels.length, 2);
-    const byName = Object.fromEntries(out.channels.map((c) => [c.channel, c]));
-    assert.equal(byName.ark.keyPresent, false);
-    assert.equal(byName.direct.keyPresent, false);
-    assert.equal(byName.ark.model, 'deepseek-v4-flash');
-    assert.equal(byName.direct.model, 'deepseek-chat');
-
-    // Env injection flips ark to present.
-    process.env.ARK_API_KEY = 'test-ark-key';
-    out = JSON.parse(await health.execute({}));
-    const byName2 = Object.fromEntries(out.channels.map((c) => [c.channel, c]));
-    assert.equal(byName2.ark.keyPresent, true);
-    assert.equal(byName2.direct.keyPresent, false);
-  } finally {
-    if (prevHome === undefined) delete process.env.USERPROFILE;
-    else process.env.USERPROFILE = prevHome;
-    if (prevArk === undefined) delete process.env.ARK_API_KEY;
-    else process.env.ARK_API_KEY = prevArk;
-    if (prevDeep === undefined) delete process.env.DEEPSEEK_API_KEY;
-    else process.env.DEEPSEEK_API_KEY = prevDeep;
-    await rm(home, { recursive: true, force: true });
-  }
+  assert.deepEqual(names, ['busyloop_run']);
 });
 
 test('busyloop_run fails cleanly without a key (no API call)', async () => {

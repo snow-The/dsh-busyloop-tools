@@ -139,24 +139,6 @@ function apply(ctx) {
       }
     })
   );
-  ctx.tools.register(
-    defineTool({
-      name: "busyloop_health",
-      description: "Report which busyloop channels are usable: whether ARK_API_KEY / DEEPSEEK_API_KEY are present in the environment or ~/.dsh/.credentials.yaml, and the endpoint/model each channel uses.",
-      parameters: {},
-      output: {
-        schema: { type: "string" },
-        render: (_args, value) => [{ type: "text", text: value }]
-      },
-      async execute() {
-        const rows = Object.entries(CHANNELS).map(([key, ch]) => {
-          const present = Boolean(loadKey(ch.keyEnv));
-          return { channel: key, baseURL: ch.baseURL, model: ch.model, keyEnv: ch.keyEnv, keyPresent: present };
-        });
-        return JSON.stringify({ ok: true, channels: rows });
-      }
-    })
-  );
 }
 export {
   apply,

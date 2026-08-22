@@ -8,7 +8,6 @@
  *
  * Tools:
  *   busyloop_run     — run one one-off subagent loop on a chosen channel.
- *   busyloop_health  — report which channels are usable (key presence).
  *
  * Channels:
  *   ark    (default) https://ark.cn-beijing.volces.com/api/plan/v3

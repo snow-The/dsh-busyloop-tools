@@ -1,7 +1,7 @@
 {
   "name": "@snow-the/dsh-busyloop-tools",
-  "version": "0.1.0",
-  "description": "Expose the dsh-busyloop engine to the agent as tools: run one-off subagent loops on a chosen LLM channel (Volcano Ark plan API by default) without touching the main model's tokens.",
+  "version": "0.1.1",
+  "description": "Expose the dsh-busyloop engine to the agent as a tool: run one-off subagent loops on a chosen LLM channel (Volcano Ark plan API by default) without touching the main model's tokens.",
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

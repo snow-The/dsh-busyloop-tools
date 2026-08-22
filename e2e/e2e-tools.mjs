@@ -9,14 +9,9 @@ import { name, apply } from '../dist/index.js';
 const registered = [];
 apply({ tools: { register: (def) => registered.push(def) } });
 
-const health = registered.find((d) => d.name === 'busyloop_health');
 const run = registered.find((d) => d.name === 'busyloop_run');
-
-const h = JSON.parse(await health.execute({}));
-console.log('HEALTH:', JSON.stringify(h));
-const ark = h.channels.find((c) => c.channel === 'ark');
-if (!ark.keyPresent) {
-  console.error('NO ARK KEY — cannot run live E2E');
+if (!run) {
+  console.error('busyloop_run not registered');
   process.exit(1);
 }
 
