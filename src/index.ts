@@ -11,7 +11,7 @@
  *
  * Channels:
  *   ark    (default) https://ark.cn-beijing.volces.com/api/plan/v3
- *                      model deepseek-v4-flash, key ARK_API_KEY
+ *                      model deepseek-v4.1-flash, key ARK_API_KEY
  *   direct            https://api.deepseek.com
  *                      model deepseek-chat,  key DEEPSEEK_API_KEY
  */
@@ -37,7 +37,7 @@ interface Channel {
 const CHANNELS: Record<'ark' | 'direct', Channel> = {
   ark: {
     baseURL: 'https://ark.cn-beijing.volces.com/api/plan/v3',
-    model: 'deepseek-v4-flash',
+    model: 'deepseek-v4.1-flash',
     keyEnv: 'ARK_API_KEY',
   },
   direct: {
@@ -106,7 +106,7 @@ export function apply(ctx: any): void {
     defineTool({
       name: 'busyloop_run',
       description:
-        'Run one one-off subagent loop on a cheap channel (default: Volcano Ark plan API with deepseek-v4-flash, billed to the ARK key — main-model tokens untouched). Returns the loop output plus turn/tool-call/usage stats. Use for disposable research, validation, formatting, or any task that does not need the main conversation context.',
+        'Run one one-off subagent loop on a cheap channel (default: Volcano Ark plan API with deepseek-v4.1-flash, billed to the ARK key — main-model tokens untouched). Returns the loop output plus turn/tool-call/usage stats. Use for disposable research, validation, formatting, or any task that does not need the main conversation context.',
       parameters: {
         prompt: {
           type: 'string',
@@ -115,7 +115,7 @@ export function apply(ctx: any): void {
         },
         channel: {
           type: 'string',
-          description: 'Which LLM channel to use. ark (default) = Volcano Ark plan API, deepseek-v4-flash, ARK_API_KEY; direct = api.deepseek.com, deepseek-chat, DEEPSEEK_API_KEY.',
+          description: 'Which LLM channel to use. ark (default) = Volcano Ark plan API, deepseek-v4.1-flash, ARK_API_KEY; direct = api.deepseek.com, deepseek-chat, DEEPSEEK_API_KEY.',
         },
         system: {
           type: 'string',

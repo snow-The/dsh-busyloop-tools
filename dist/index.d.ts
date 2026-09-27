@@ -11,7 +11,7 @@
  *
  * Channels:
  *   ark    (default) https://ark.cn-beijing.volces.com/api/plan/v3
- *                      model deepseek-v4-flash, key ARK_API_KEY
+ *                      model deepseek-v4.1-flash, key ARK_API_KEY
  *   direct            https://api.deepseek.com
  *                      model deepseek-chat,  key DEEPSEEK_API_KEY
  */
